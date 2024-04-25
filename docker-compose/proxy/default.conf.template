@@ -31,6 +31,22 @@ server {
     }
 }
 
+server {
+    listen 443 default_server ssl http2;
+    listen [::]:443 ssl http2;
+    server_name  rpc.runeschain.ai;
+
+    ssl_certificate  /etc/letsencrypt/live/runeschain.ai/fullchain.pem;
+    ssl_certificate_key  /etc/letsencrypt/live/runeschain.ai/privkey.pem;
+    location / {
+        proxy_pass            http://nitro:8449/;
+    }
+     
+    location ~ /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
+
 
 server {
     listen       5555;
