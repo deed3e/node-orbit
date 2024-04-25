@@ -25,11 +25,11 @@ async function sendEthOrDepositERC20(
       l2Signer
     )
     const tx = await contract.depositEth({
-      value: ethers.utils.parseEther('0.4'),
+      value: ethers.utils.parseEther('100000000'),
     })
     console.log('Transaction hash on parent chain: ', tx.hash)
     await tx.wait()
-    console.log('0.4 ETHs are deposited to your account')
+    console.log('100000000 ETHs are deposited to your account')
   } else {
     const nativeTokenContract = ERC20__factory.connect(nativeToken, l2Signer)
 
@@ -49,7 +49,7 @@ async function sendEthOrDepositERC20(
     if (decimals !== 18) {
       throw new Error('We currently only support 18 decimals token')
     }
-    const amount = ethers.utils.parseUnits('0.4', decimals)
+    const amount = ethers.utils.parseUnits('100000000', decimals)
     const tx = await erc20Inbox.depositERC20(amount)
     console.log('Transaction hash for depositERC20: ', tx.hash)
     await tx.wait()
